@@ -67,7 +67,7 @@ namespace WatchDog
         {
             Process[] qBittorrentPrt;
             qBittorrentPrt = Process.GetProcessesByName("qbittorrent");
-            if (qBittorrentPrt.Length == 0)
+            if (qBittorrentPrt.Length == 0) //開啟數量等於0 就重開
             {
                 Runqbittorrent();
             }
@@ -95,6 +95,13 @@ namespace WatchDog
 
         private void Runqbittorrent()
         {
+            log = string.Format("{0}{1} {2}: Restart qBittorrent}\r\n",
+                log,
+                DateTime.Now.ToShortDateString(),
+                DateTime.Now.TimeOfDay);
+
+            tb_log.Text = log;
+
             Process memProcess = new Process();
             memProcess.StartInfo.FileName = "C:\\Program Files\\qBittorrent\\qbittorrent.exe";
             memProcess.StartInfo.UseShellExecute = true;
